@@ -1,0 +1,17 @@
+﻿Time(s),20,,,次のn分間
+Rate,0.1,0.3,,a秒からb秒のインターバルおきに
+Enemy,0,1,,EnemyIDx,EnemyIDy,EnemyIDz...の敵がそれぞれ同一の確率で排出される。
+Enemy,1,1,,
+Enemy,2,1,,
+Enemy,3,3,,
+Enemy,4,3,,
+Time(s),20,,,次のn分間
+Rate,0.1,0.3,,a秒からb秒のインターバルおきに
+Enemy,8,3,,EnemyIDx,EnemyIDy,EnemyIDz...の敵がそれぞれ同一の確率で排出される。
+Enemy,9,1,,
+Enemy,10,1,,
+Time(s),20,,,
+Rate,0.5,1,,
+Enemy,0,2,,
+Enemy,1,2,,
+Enemy,2,5,,
