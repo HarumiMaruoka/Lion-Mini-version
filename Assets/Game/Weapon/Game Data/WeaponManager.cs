@@ -9,23 +9,35 @@ namespace Lion.Weapon
 {
     public class WeaponManager
     {
-        public static WeaponManager Instance { get; private set; } = new WeaponManager();
+        private static WeaponManager _instance = new WeaponManager();
+        public static WeaponManager Instance
+        {
+            get
+            {
+                if (!_instance._isInitialized)
+                {
+                    _instance.Initialize();
+                }
+                return _instance;
+            }
+        }
+        private WeaponManager() { }
+
+        private bool _isInitialized = false;
+        private void Initialize()
+        {
+            WeaponSheet = Resources.Load<WeaponSheet>("WeaponSheet");
+            WeaponSheet.Initialize();
+            _isInitialized = true;
+        }
 
         public WeaponSheet WeaponSheet { get; private set; }
         public WeaponInventory Inventory { get; private set; } = new WeaponInventory();
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Initialize()
-        {
-            Instance.WeaponSheet = Resources.Load<WeaponSheet>("WeaponSheet");
-            Instance.WeaponSheet.Initialize();
-        }
 
         public WeaponInstance GetWeapon(int inventoryIndex)
         {
             if (inventoryIndex < 0 || inventoryIndex >= Inventory.Weapons.Count)
             {
-                // Debug.LogError($"WeaponManager: Weapon with index {inventoryIndex} does not exist.");
                 return null;
             }
             return Inventory.Weapons[inventoryIndex];

@@ -1,10 +1,9 @@
-﻿using Lion.LevelManagement;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Lion.Weapon
 {
-    public struct WeaponStatus : IStatus
+    public struct WeaponStatus
     {
         public int Level { get; private set; }
         public float PhysicalPower { get; private set; }

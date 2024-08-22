@@ -1,4 +1,5 @@
 ﻿using Lion.Actor;
+using Lion.Player;
 using System;
 using UnityEngine;
 
@@ -29,12 +30,18 @@ namespace Lion.Minion.States
             }
         }
 
+        private static readonly float BaseMoveSpeed = 2f;
+        private float PlayerMoveSpeed => PlayerManager.Instance.LevelManager.CurrentStatus.MoveSpeed;
+
         public void Update(MinionController minion)
         {
+            var minionMoveSpeed = minion.Status.Speed;
+            var adjustedMoveSpeed = PlayerMoveSpeed + BaseMoveSpeed + minionMoveSpeed * 0.03f;
+
             // 目的地に向かって移動する。
             var currentPosition = minion.transform.position;
             var direction = (_destination - currentPosition).normalized;
-            minion.Rigidbody2D.velocity = direction * minion.Status.MoveSpeed * 1.5f;
+            minion.Rigidbody2D.velocity = direction * adjustedMoveSpeed;
 
             // プレイヤーと離れすぎている場合、強制的に目的地に移動させる。
             if (ActivityArea.Instance.IsFarFromArea(minion.transform.position, 5f))

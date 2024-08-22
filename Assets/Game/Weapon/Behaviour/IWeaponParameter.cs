@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lion.Actor;
+using System;
 using UnityEngine;
 
 namespace Lion.Weapon
@@ -9,7 +10,6 @@ namespace Lion.Weapon
         float PhysicalPower { get; }
         float MagicPower { get; }
         float Range { get; }
-        float Size { get; }
         float Duration { get; }
         float AttackSpeed { get; }
         int Amount { get; }

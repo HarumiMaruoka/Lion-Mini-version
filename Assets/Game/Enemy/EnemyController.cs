@@ -7,6 +7,7 @@ using Lion.Damage;
 using System;
 using UnityEngine;
 using Lion.Player;
+using Lion.Actor;
 
 namespace Lion.Enemy
 {
@@ -71,7 +72,7 @@ namespace Lion.Enemy
             }
         }
 
-        private void Die(bool isKill, IActor actor)
+        public void Die(bool isKill, IActor actor)
         {
             if (isKill)
             {
@@ -79,7 +80,7 @@ namespace Lion.Enemy
 
                 DroppedGemPool.Instance.CreateDroppedGem(actor, transform.position, EnemyData.Exp);
                 DroppedGoldPool.Instance.CreateDroppedGold(actor, transform.position, EnemyData.Gold);
-                // MainMission.Instance.KillCount++;
+                EnemyManager.Instance.OnEnemyKilled?.Invoke(this);
             }
 
             EnemyManager.Instance.EnemyPool.ReturnEnemy(this);

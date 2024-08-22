@@ -1,4 +1,5 @@
-﻿using Lion.Enemy;
+﻿using Lion.Actor;
+using Lion.Enemy;
 using System;
 using UnityEngine;
 

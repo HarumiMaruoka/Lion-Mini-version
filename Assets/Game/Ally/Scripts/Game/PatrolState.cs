@@ -1,4 +1,5 @@
 ﻿using Lion.Actor;
+using Lion.Player;
 using Lion.Stage;
 using System;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Lion.Ally
             _stagnantElapsed = 0f;
             _patrolElapsed = 0f;
 
-            _patrolTimeThreshold = UnityEngine.Random.Range(5f, 9f);
+            _patrolTimeThreshold = UnityEngine.Random.Range(3f, 5f);
             _stagnantTimeThreshold = UnityEngine.Random.Range(2f, 4f);
 
             _previousPosition = ally.transform.position;
@@ -81,12 +82,18 @@ namespace Lion.Ally
             }
         }
 
+        private static readonly float BaseMoveSpeed = 0.6f;
+        private float PlayerMoveSpeed => PlayerManager.Instance.LevelManager.CurrentStatus.MoveSpeed;
+
         private bool MoveTowardsDestination(AllyController ally)
         {
+            var allyMoveSpeed = ally.Status.Speed * 0.02f;
+            var adjustedMoveSpeed = PlayerMoveSpeed + BaseMoveSpeed + allyMoveSpeed;
+
             _patrolElapsed += Time.deltaTime;
             var currentPosition = ally.transform.position;
             var direction = (_destination - currentPosition).normalized;
-            ally.Rigidbody2D.velocity = direction * (1.4f + ally.Status.Speed * 0.02f);
+            ally.Rigidbody2D.velocity = direction * adjustedMoveSpeed;
 
             if (_patrolElapsed > _patrolTimeThreshold)
             {

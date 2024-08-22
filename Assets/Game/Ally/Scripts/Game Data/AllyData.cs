@@ -1,5 +1,6 @@
-﻿using Lion.Ally.Skill;
-using Lion.Formation;
+﻿using Lion.Actor;
+using Lion.Ally.Skill;
+using Lion.Minion;
 using Lion.Player;
 using Lion.Save;
 using Lion.Weapon;
@@ -8,9 +9,11 @@ using UnityEngine;
 
 namespace Lion.Ally
 {
-    public class AllyData : ScriptableObject, IWeaponEquippable, ISavable
+    public class AllyData : ScriptableObject
     {
         [field: SerializeField] public int ID { get; private set; }
+        [field: SerializeField] public int MinionID { get; private set; }
+        [field: SerializeField] public int WeaponID { get; private set; }
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public Sprite ActorSprite { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
@@ -25,11 +28,12 @@ namespace Lion.Ally
         public event Action<int> OnCountChanged;
         public event Action<bool> OnUnlockStatusChanged;
 
-        public AllyLevelManager LevelManager { get; private set; }
         public bool IsActive => _instance != null;
         public bool Unlocked => _count > 0;
-        public AllyStatus Status => LevelManager.Status;
         public AllyController Instance => _instance;
+
+        public ExperiencePointsLevelManager LevelManager { get; private set; }
+        public MinionData Minion => MinionManager.Instance.MinionSheet.GetMinionData(MinionID);
 
         public int Count
         {
@@ -53,8 +57,8 @@ namespace Lion.Ally
         public void Initialize()
         {
             Count = 0;
-            LevelManager = new AllyLevelManager(this);
-            SaveManager.Instance.Register(this);
+            LevelManager = new ExperiencePointsLevelManager($"LevelByStatus_Ally{ID}");
+            _equipped[0] = WeaponInstance.Create(WeaponID);
         }
 
         public void Activate()
@@ -84,11 +88,6 @@ namespace Lion.Ally
             }
         }
 
-        public WeaponInstance Equipped(int index)
-        {
-            return _equipped[index];
-        }
-
         public void Equip(WeaponInstance weapon, int index)
         {
             if (index < 0 || index >= _equipped.Length)
@@ -100,55 +99,6 @@ namespace Lion.Ally
             _equipped[index]?.Deactivation();
             _equipped[index] = weapon == _equipped[index] ? null : weapon;
             _equipped[index]?.Activation(_instance);
-        }
-
-        public int LoadOrder => 1;
-
-        public void Save()
-        {
-            // カウント、装備状態、レベルを保存
-            var isActive = IsActive;
-            var count = Count;
-            var itemLevel = LevelManager.ItemLevelManager.CurrentLevel;
-            var exp = LevelManager.ExpLevelManager.CurrentExp;
-
-            var equippedWeapon0 = WeaponManager.Instance.Inventory.IndexOf(_equipped[0]);
-            var equippedWeapon1 = WeaponManager.Instance.Inventory.IndexOf(_equipped[1]);
-            var equippedWeapon2 = WeaponManager.Instance.Inventory.IndexOf(_equipped[2]);
-            var equippedWeapon3 = WeaponManager.Instance.Inventory.IndexOf(_equipped[3]);
-
-            PlayerPrefs.SetInt($"AllyData{ID}_IsActive", isActive ? 1 : 0);
-            PlayerPrefs.SetInt($"AllyData{ID}_Count", count);
-            PlayerPrefs.SetInt($"AllyData{ID}_ItemLevel", itemLevel);
-            PlayerPrefs.SetInt($"AllyData{ID}_Exp", exp);
-
-            PlayerPrefs.SetInt($"AllyData{ID}_Equipped0", equippedWeapon0);
-            PlayerPrefs.SetInt($"AllyData{ID}_Equipped1", equippedWeapon1);
-            PlayerPrefs.SetInt($"AllyData{ID}_Equipped2", equippedWeapon2);
-            PlayerPrefs.SetInt($"AllyData{ID}_Equipped3", equippedWeapon3);
-        }
-
-        public void Load()
-        {
-            // カウント、レベル、装備をロードする。
-            var count = PlayerPrefs.GetInt($"AllyData{ID}_Count", 0);
-            var itemLevel = PlayerPrefs.GetInt($"AllyData{ID}_ItemLevel", 1);
-            var exp = PlayerPrefs.GetInt($"AllyData{ID}_Exp", 0);
-
-            var equippedWeapon0 = PlayerPrefs.GetInt($"AllyData{ID}_Equipped0", -1);
-            var equippedWeapon1 = PlayerPrefs.GetInt($"AllyData{ID}_Equipped1", -1);
-            var equippedWeapon2 = PlayerPrefs.GetInt($"AllyData{ID}_Equipped2", -1);
-            var equippedWeapon3 = PlayerPrefs.GetInt($"AllyData{ID}_Equipped3", -1);
-
-            Count = count;
-            LevelManager.ItemLevelManager.CurrentLevel = itemLevel;
-            LevelManager.ExpLevelManager.Clear();
-            LevelManager.ExpLevelManager.AddExp(exp);
-
-            _equipped[0] = WeaponManager.Instance.GetWeapon(equippedWeapon0);
-            _equipped[1] = WeaponManager.Instance.GetWeapon(equippedWeapon1);
-            _equipped[2] = WeaponManager.Instance.GetWeapon(equippedWeapon2);
-            _equipped[3] = WeaponManager.Instance.GetWeapon(equippedWeapon3);
         }
     }
 }

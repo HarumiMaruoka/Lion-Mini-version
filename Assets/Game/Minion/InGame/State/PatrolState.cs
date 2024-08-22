@@ -1,4 +1,5 @@
 ﻿using Lion.Actor;
+using Lion.Player;
 using Lion.Stage;
 using System;
 using UnityEngine;
@@ -81,12 +82,18 @@ namespace Lion.Minion.States
             }
         }
 
+        private static readonly float BaseMoveSpeed = 0.6f;
+        private float PlayerMoveSpeed => PlayerManager.Instance.LevelManager.CurrentStatus.MoveSpeed;
+
         private bool MoveTowardsDestination(MinionController minion)
         {
+            var minionMoveSpeed = minion.Status.Speed * 0.02f;
+            var adjustedMoveSpeed = PlayerMoveSpeed + BaseMoveSpeed + minionMoveSpeed;
+
             _patrolElapsed += Time.deltaTime;
             var currentPosition = minion.transform.position;
             var direction = (_destination - currentPosition).normalized;
-            minion.Rigidbody2D.velocity = direction * (1.4f + minion.Status.Speed * 0.02f);
+            minion.Rigidbody2D.velocity = direction * adjustedMoveSpeed;
 
             if (_patrolElapsed > _patrolTimeThreshold)
             {

@@ -12,15 +12,15 @@ TagManager:
   - Player
   - Water
   - UI
-  - StageMap
+  - Enemy-only Collision Object
   - Ally
   - Minion
   - Barrier
   - Enemy
   - HomeMap
-  - 
-  - 
-  - 
+  - Player-only Collision Object
+  - Universal Collision Object
+  - No Collision Object
   - 
   - 
   - 

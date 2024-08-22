@@ -36,6 +36,7 @@ namespace Lion.UI
             {
                 StopCoroutine(_fadeCoroutine);
             }
+            _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 0);
             _fadeCoroutine = StartCoroutine(FadeInAsync(fadeDuration, onComplete));
         }
 
@@ -45,31 +46,25 @@ namespace Lion.UI
             {
                 StopCoroutine(_fadeCoroutine);
             }
+            _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 1);
             _fadeCoroutine = StartCoroutine(FadeOutAsync(fadeDuration, onComplete));
         }
 
-        private bool _isFading = false;
-        public bool IsFading => _isFading;
-
         private IEnumerator FadeInAsync(float fadeDuration, Action onComplete)
         {
-            _isFading = true;
             _image.enabled = true;
             yield return _image.FadeInAsync(fadeDuration);
             _fadeCoroutine = null;
-            _isFading = false;
 
             onComplete?.Invoke();
         }
 
         private IEnumerator FadeOutAsync(float fadeDuration, Action onComplete)
         {
-            _isFading = true;
             _image.enabled = true;
             yield return _image.FadeOutAsync(fadeDuration);
             _image.enabled = false;
             _fadeCoroutine = null;
-            _isFading = false;
 
             onComplete?.Invoke();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lion.Manager;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +9,7 @@ namespace Lion.Home.UI
     {
         private void Start()
         {
+            GameManager.Instance.GameStateController.CurrentState = GameState.MainMenu;
             gameObject.SetActive(!HomeSceneManager.Instance.IsStarted);
         }
 

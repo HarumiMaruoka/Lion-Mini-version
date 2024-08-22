@@ -1,4 +1,6 @@
 ﻿using Lion.CameraUtility;
+using Lion.Manager;
+using Lion.UI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +9,6 @@ namespace Lion.Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject _gameOverWindow;
-        [SerializeField] private TextAsset _spawnData;
-
         private Vector2 TopRight => Camera.main.GetWorldTopRight() + new Vector2(3f, 3f);
         private Vector2 BottomLeft => Camera.main.GetWorldBottomLeft() - new Vector2(3f, 3f);
 
@@ -18,6 +17,8 @@ namespace Lion.Enemy
         private float _elapsed = 0f;
 
         public float RemainingTime => _totalTime - _elapsed;
+
+        public double Elapsed => _elapsed;
 
         private float _spawnIntervalTimer = 0f;
         private float _spawnInterval = 0f;
@@ -29,23 +30,27 @@ namespace Lion.Enemy
 
         private Wave _currentWave;
 
-        private void Start()
+        public void Initialize(List<Wave> waves)
         {
-            _waves = SpawnerDataReader.Load(_spawnData);
+            _waves = waves;
             CalculateTotalTime();
-            if (_waves.Count == 0) return;
+            if (_waves == null || _waves.Count == 0) return;
             _currentWave = _waves[_waveIndex];
             _spawnInterval = UnityEngine.Random.Range(_currentWave.MinInterval, _currentWave.MaxInterval);
         }
 
         private void Update()
         {
+            if (GameManager.Instance.GameStateController.CurrentState != GameState.InGame) return;
+
             var old = _elapsed;
             _elapsed += Time.deltaTime;
             if (old < _totalTime && _elapsed >= _totalTime)
             {
                 // Show Result UI
-                _gameOverWindow.SetActive(true);
+                GameManager.Instance.GameStateController.CurrentState = GameState.GameOver;
+                EnemyManager.Instance.EnemyPool.KillAll(false, null);
+                GameOverWindow.Instance.Show();
             }
             if (_elapsed >= _totalTime) return;
 
@@ -67,6 +72,12 @@ namespace Lion.Enemy
 
         private void CalculateTotalTime()
         {
+            if (_waves == null || _waves.Count == 0)
+            {
+                Debug.LogError("Wave data is not found.");
+                return;
+            }
+
             var totalTime = 0f;
             foreach (var wave in _waves)
             {

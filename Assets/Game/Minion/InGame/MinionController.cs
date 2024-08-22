@@ -15,7 +15,7 @@ namespace Lion.Minion
         [SerializeField] private MinionBullet _bulletPrefab;
 
         public MinionData MinionData { get; set; }
-        public MinionStatus Status => MinionData.Status;
+        public Status Status => MinionData.Status;
 
         public Rigidbody2D Rigidbody2D { get; private set; }
         public Animator Animator { get; private set; }
@@ -91,7 +91,7 @@ namespace Lion.Minion
 
         public void CollectGem(int amount)
         {
-            MinionData.LevelManager.ExpLevelManager.AddExp(amount);
+            MinionData.LevelManager.AddExp(amount);
         }
 
         public void CollectGold(int amount)
@@ -110,10 +110,6 @@ namespace Lion.Minion
                 OnLifeChanged?.Invoke(_life);
             }
         }
-
-        public float PhysicalPower => Status.Attack;
-
-        public float MagicPower => Status.Attack;
 
         public void Heal(float amount)
         {

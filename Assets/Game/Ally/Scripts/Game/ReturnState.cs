@@ -1,5 +1,6 @@
 ﻿using Lion.Actor;
 using Lion.CameraUtility;
+using Lion.Player;
 using System;
 using UnityEngine;
 
@@ -29,12 +30,18 @@ namespace Lion.Ally
             }
         }
 
+        private static readonly float BaseMoveSpeed = 2f;
+        private float PlayerMoveSpeed => PlayerManager.Instance.LevelManager.CurrentStatus.MoveSpeed;
+
         public void Update(AllyController ally)
         {
+            var allyMoveSpeed = ally.Status.Speed;
+            var adjustedMoveSpeed = PlayerMoveSpeed + BaseMoveSpeed + allyMoveSpeed * 0.03f;
+
             // 目的地に向かって移動する。
             var currentPosition = ally.transform.position;
             var direction = (_destination - currentPosition).normalized;
-            ally.Rigidbody2D.velocity = direction * (1.6f + ally.Status.Speed * 0.03f);
+            ally.Rigidbody2D.velocity = direction * adjustedMoveSpeed;
 
             // プレイヤーと離れすぎている場合、強制的に目的地に移動させる。
             if (ActivityArea.Instance.IsFarFromArea(ally.transform.position, 5f))

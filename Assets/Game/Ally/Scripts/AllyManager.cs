@@ -6,15 +6,29 @@ namespace Lion.Ally
 {
     public class AllyManager
     {
-        public static AllyManager Instance { get; } = new AllyManager();
+        private static AllyManager _instance = new AllyManager();
+        public static AllyManager Instance
+        {
+            get
+            {
+                if (!_instance._isInitialized)
+                {
+                    _instance.Initialize();
+                }
+                return _instance;
+            }
+        }
+        private AllyManager() { }
+
+        private bool _isInitialized = false;
+
+        private void Initialize()
+        {
+            AllySheet = Resources.Load<AllySheet>("AllySheet");
+            AllySheet.Initialize();
+            _instance._isInitialized = true;
+        }
 
         public AllySheet AllySheet { get; private set; }
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Initialize()
-        {
-            Instance.AllySheet = Resources.Load<AllySheet>("AllySheet");
-            Instance.AllySheet.Initialize();
-        }
     }
 }

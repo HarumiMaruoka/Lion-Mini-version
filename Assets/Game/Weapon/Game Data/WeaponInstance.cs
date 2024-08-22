@@ -1,4 +1,4 @@
-﻿using Lion.LevelManagement.ItemLevel;
+﻿using Lion.Actor;
 using Lion.Weapon.Behaviour;
 using System;
 using UnityEngine;
@@ -14,7 +14,6 @@ namespace Lion.Weapon
         {
             Data = data;
             Parameter = new WeaponParameter(this);
-            LevelManager = new ItemLevelManager(data.LevelManager.CostTable, initialLevel);
         }
 
         public static WeaponInstance Create(int id, int initialLevel = 1)
@@ -28,25 +27,12 @@ namespace Lion.Weapon
         }
 
         public WeaponData Data { get; }
-        public ItemLevelManager LevelManager { get; }
 
         public bool IsActive => _gameObject != null;
 
-        public int Level
-        {
-            get => LevelManager.CurrentLevel;
-            set => LevelManager.CurrentLevel = value;
-        }
-
-        public WeaponStatus Status => Data.LevelManager.GetStatus(Level);
+        public WeaponStatus Status => default;
 
         public event Action<bool> OnActiveChanged;
-
-        public event Action<int> OnLevelChanged
-        {
-            add => LevelManager.OnLevelChanged += value;
-            remove => LevelManager.OnLevelChanged -= value;
-        }
 
         public void Activation(IActor owner)
         {

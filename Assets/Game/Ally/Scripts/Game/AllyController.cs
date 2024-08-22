@@ -12,7 +12,7 @@ namespace Lion.Ally
     public class AllyController : MonoBehaviour, IActor
     {
         public AllyData AllyData { get; set; }
-        public AllyStatus Status => AllyData == null ? default : AllyData.Status;
+        public Status Status => AllyData.LevelManager.CurrentStatus;
 
         public Rigidbody2D Rigidbody2D { get; private set; }
         public Animator Animator { get; private set; }
@@ -74,7 +74,7 @@ namespace Lion.Ally
 
         public void CollectGem(int amount)
         {
-            AllyData.LevelManager.ExpLevelManager.AddExp(amount);
+            AllyData.LevelManager.AddExp(amount);
         }
 
         public void CollectGold(int amount)
@@ -93,10 +93,6 @@ namespace Lion.Ally
                 OnLifeChanged?.Invoke(_life);
             }
         }
-
-        public float PhysicalPower => Status.AttackPower;
-
-        public float MagicPower => Status.AttackPower;
 
         public void Heal(float amount)
         {

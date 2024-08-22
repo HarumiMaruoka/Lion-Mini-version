@@ -1,4 +1,5 @@
-﻿using Lion.Enemy;
+﻿using Lion.Actor;
+using Lion.Enemy;
 using Lion.Player;
 using System;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Lion.Ally.Skill
             set { _owner = value; _move.Center = _owner.transform; }
         }
 
-        private float MagicPower => Owner == null ? 3 : Owner.MagicPower;
+        private float MagicPower => Owner == null ? 3 : Owner.Status.MagicPower;
 
         [SerializeField]
         private FunnelMovement _move;

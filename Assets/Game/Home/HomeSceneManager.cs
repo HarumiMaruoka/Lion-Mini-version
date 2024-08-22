@@ -20,31 +20,24 @@ namespace Lion.Home
         }
 
         private WeaponData _selectedPlayerWeapon;
-        public WeaponData SelectedPlayerWeapon => _selectedPlayerWeapon;
+        public WeaponData SelectedPlayerWeapon => _selectedPlayerWeapon != null ? _selectedPlayerWeapon : WeaponManager.Instance.WeaponSheet.GetMinionData(1);
         public void SelectPlayerWeapon(WeaponData weaponData)
         {
             _selectedPlayerWeapon = weaponData;
         }
 
         private AllyData _selectedAlly;
-        public AllyData SelectedAlly => _selectedAlly;
+        public AllyData SelectedAlly => _selectedAlly != null ? _selectedAlly : AllyManager.Instance.AllySheet.GetAllyData(0);
         public void SelectAlly(AllyData allyData)
         {
             _selectedAlly = allyData;
         }
 
-        private MinionData _selectedMinion;
-        public MinionData SelectedMinion => _selectedMinion;
-        public void SelectMinion(MinionData minionData)
+        private int _selectedStageID = 0;
+        public int SelectedStageID => _selectedStageID;
+        public void SelectStage(int stageID)
         {
-            _selectedMinion = minionData;
-        }
-
-        private string _selectedStage;
-        public string SelectedStage => _selectedStage;
-        public void SelectStage(string stage)
-        {
-            _selectedStage = stage;
+            _selectedStageID = stageID;
         }
     }
 }

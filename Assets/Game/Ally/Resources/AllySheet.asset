@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: AllySheet (Lion.Ally.AllySheet)
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 2
+  <MinionID>k__BackingField: 2
+  <WeaponID>k__BackingField: 2
   <Name>k__BackingField: Artist
   <ActorSprite>k__BackingField: {fileID: 6373048116405451881, guid: f374107ba66790641b6b7c9d0d9a49d3, type: 3}
   <Icon>k__BackingField: {fileID: 21300000, guid: 4774691f98ff854459606b26393717a6, type: 3}
@@ -32,18 +34,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Sheet>k__BackingField: {fileID: 11400000}
   HorizontalSpacings:
-  - 19.1
+  - 20
+  - 40
+  - 40
+  - 40
+  - 65
+  - 40
+  - 40
+  - 80
+  - 75
+  - 85
+  - 40
+  - 250
   - 50
-  - 37
-  - 76
-  - 82
-  - 120
-  - 31
-  - 118.97
-  - 42
-  - 160
-  - 68
-  - 50
+  - 250
+  - 75
+  - 175
   VerticalSpacings:
   - 20
   - 20
@@ -85,6 +91,8 @@ MonoBehaviour:
   m_Name: AllySheet (Lion.Ally.AllySheet)
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 3
+  <MinionID>k__BackingField: 0
+  <WeaponID>k__BackingField: 0
   <Name>k__BackingField: Doctor
   <ActorSprite>k__BackingField: {fileID: 6373048116405451881, guid: 6fc66c021eec74942b4e71a3fde4dc04, type: 3}
   <Icon>k__BackingField: {fileID: 21300000, guid: 72a7a67ea4905184f8a2075422ff4d05, type: 3}
@@ -103,6 +111,8 @@ MonoBehaviour:
   m_Name: AllySheet (Lion.Ally.AllySheet)
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 4
+  <MinionID>k__BackingField: 1
+  <WeaponID>k__BackingField: 7
   <Name>k__BackingField: Blacksmith
   <ActorSprite>k__BackingField: {fileID: 6373048116405451881, guid: 77ba605bbd83f4448bc8683510c3155e, type: 3}
   <Icon>k__BackingField: {fileID: 21300000, guid: e9f00bf9217d1c44fb23e46e585cf39a, type: 3}
@@ -121,6 +131,8 @@ MonoBehaviour:
   m_Name: AllySheet (Lion.Ally.AllySheet)
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 0
+  <MinionID>k__BackingField: 0
+  <WeaponID>k__BackingField: 6
   <Name>k__BackingField: Arthur
   <ActorSprite>k__BackingField: {fileID: 6373048116405451881, guid: 0e3502a80399d164ea01f1868f65acbf, type: 3}
   <Icon>k__BackingField: {fileID: 21300000, guid: 3883df57ed54de24aaace377adfc8e49, type: 3}
@@ -139,6 +151,8 @@ MonoBehaviour:
   m_Name: AllySheet (Lion.Ally.AllySheet)
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 1
+  <MinionID>k__BackingField: 1
+  <WeaponID>k__BackingField: 5
   <Name>k__BackingField: Sebas
   <ActorSprite>k__BackingField: {fileID: -606836463, guid: 836ba81373ddf664c8a192783efe0ecd, type: 3}
   <Icon>k__BackingField: {fileID: 21300000, guid: d71a647d75e02404fabbbd96f094519f, type: 3}

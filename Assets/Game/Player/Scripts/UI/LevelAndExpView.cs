@@ -1,5 +1,4 @@
-﻿using Lion.LevelManagement;
-using Lion.LevelManagement.ExperienceLevel;
+﻿using Lion.Actor;
 using System;
 using TMPro;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace Lion.Player.UI
         [SerializeField]
         private TextMeshProUGUI _expText = default;
 
-        private ExperienceLevelManager ExpLevelManager => PlayerManager.Instance.LevelManager.ExpLevelManager;
+        private ExperiencePointsLevelManager ExpLevelManager => PlayerManager.Instance.LevelManager;
 
         private int CurrentLevel => ExpLevelManager.CurrentLevel;
         private int CurrentExp => ExpLevelManager.CurrentExp;

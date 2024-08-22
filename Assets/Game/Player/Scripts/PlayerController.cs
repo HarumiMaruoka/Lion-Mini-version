@@ -1,6 +1,7 @@
 ﻿using Lion.Actor;
 using Lion.Gem;
 using Lion.Gold;
+using Lion.Weapon;
 using System;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Lion.Player
     public class PlayerController : MonoBehaviour, IActor
     {
         public static PlayerController Instance { get; private set; }
+
+        public Status Status => PlayerManager.Instance.Status;
 
         private Vector3 _previousPosition = new Vector3(-1, 0, 0);
         private Vector3 _currentPosition;
@@ -55,7 +58,7 @@ namespace Lion.Player
 
         public void CollectGem(int amount)
         {
-            PlayerManager.Instance.LevelManager.ExpLevelManager.AddExp(amount);
+            PlayerManager.Instance.LevelManager.AddExp(amount);
         }
 
         public event Action<float> OnHPChanged
@@ -72,5 +75,10 @@ namespace Lion.Player
 
         public void Heal(float amount) => PlayerManager.Instance.HPManager.Heal(amount);
         public void Damage(float amount) => PlayerManager.Instance.HPManager.Damage(amount);
+
+        internal void EquipWeapon(WeaponInstance weapon)
+        {
+            weapon?.Activation(this);
+        }
     }
 }

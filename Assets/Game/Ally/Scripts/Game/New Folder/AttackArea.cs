@@ -12,7 +12,7 @@ namespace Lion.Ally
         {
             if (EnemyManager.TryGetEnemy(collision.gameObject, out EnemyController enemy))
             {
-                enemy.PhysicalDamage(AllyController.Status.AttackPower, AllyController);
+                enemy.PhysicalDamage(AllyController.Status.PhysicalPower, AllyController);
             }
         }
     }

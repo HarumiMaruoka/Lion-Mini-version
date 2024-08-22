@@ -1,0 +1,15 @@
+﻿Time(s),300,,,次の5分間
+Rate,0.1,0.3,,0.1秒から0.3秒のインターバルおきに
+Enemy,0,1,,EnemyID 0, EnemyID 1, EnemyID 2 の敵が それぞれ同一の確率で排出される。
+Enemy,1,1,,
+Enemy,2,1,,
+Time(s),300,,,次の5分間
+Rate,0.1,0.3,,0.1秒から0.3秒のインターバルおきに
+Enemy,0,3,,EnemyID 0 の敵が出やすく、EnemyID 1, EnemyID 2 の敵が出にくい。
+Enemy,1,1,,
+Enemy,2,1,,
+Time(s),300,,,次の5分間
+Rate,0.5,1,,0.2秒から0.5秒のインターバルおきに
+Enemy,0,2,,EnemyID 2 の敵が出やすく、EnemyID 0, EnemyID 1 の敵が出にくい。
+Enemy,1,2,,
+Enemy,2,5,,

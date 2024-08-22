@@ -19,13 +19,17 @@ namespace Lion.Weapon
                 {
                     Debug.LogError($"Duplicate ID: {data.ID}");
                 }
-                data.Initialize();
             }
         }
 
         public bool TryGetValue(int id, out WeaponData data)
         {
             return _weaponDataByID.TryGetValue(id, out data);
+        }
+
+        public WeaponData GetMinionData(int id)
+        {
+            return _weaponDataByID[id];
         }
     }
 

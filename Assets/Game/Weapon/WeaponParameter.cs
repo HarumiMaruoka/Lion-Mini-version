@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lion.Actor;
+using System;
 using UnityEngine;
 
 namespace Lion.Weapon
@@ -15,12 +16,11 @@ namespace Lion.Weapon
 
         public IActor Actor { get; set; }
 
-        public float PhysicalPower => WeaponStatus.PhysicalPower;
-        public float MagicPower => WeaponStatus.MagicPower;
-        public float Range => WeaponStatus.Range;
-        public float Size => WeaponStatus.Size;
-        public float Duration => WeaponStatus.Duration;
-        public float AttackSpeed => WeaponStatus.AttackSpeed;
-        public int Amount => WeaponStatus.Amount;
+        public float PhysicalPower => Actor.Status.PhysicalPower;
+        public float MagicPower => Actor.Status.MagicPower;
+        public float Range => Actor.Status.Range;
+        public float Duration => 1f;
+        public float AttackSpeed => Actor.Status.Speed;
+        public int Amount => (int)Actor.Status.Amount;
     }
 }

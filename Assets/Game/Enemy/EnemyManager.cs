@@ -10,6 +10,7 @@ namespace Lion.Enemy
 
         public EnemySheet EnemySheet { get; private set; }
         public EnemyPool EnemyPool { get; private set; }
+        public Action<EnemyController> OnEnemyKilled { get; internal set; }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
@@ -29,5 +30,6 @@ namespace Lion.Enemy
         {
             Instance.EnemyPool = new EnemyPool(Instance.EnemySheet);
         }
+
     }
 }

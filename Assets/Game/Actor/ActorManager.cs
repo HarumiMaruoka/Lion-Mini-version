@@ -14,6 +14,8 @@ namespace Lion.Actor
             return _actorDict.TryGetValue(instanceId, out actor);
         }
 
+        public static IEnumerable<IActor> Actors => _actorDict.Values;
+
         public static void Register(IActor actor)
         {
             var instanceId = actor.gameObject.GetInstanceID();

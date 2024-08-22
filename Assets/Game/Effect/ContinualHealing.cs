@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lion.Actor;
+using System;
 using UnityEngine;
 
 public class ContinualHealing : MonoBehaviour

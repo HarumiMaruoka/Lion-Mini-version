@@ -1,4 +1,5 @@
-﻿using Lion.Minion;
+﻿using Lion.Actor;
+using Lion.Minion;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,6 +75,16 @@ namespace Lion.Enemy
             _activePool[enemy.EnemyData.ID].Remove(enemy);
             _activeEnemies.Remove(enemy.gameObject.GetInstanceID());
             _inactivePool[enemy.EnemyData.ID].Enqueue(enemy);
+        }
+
+        public void KillAll(bool isKill, IActor actor)
+        {
+            var allActiveEnemies = new HashSet<EnemyController>(_activeEnemies.Values);
+
+            foreach (var enemy in allActiveEnemies)
+            {
+                enemy.Die(isKill, actor);
+            }
         }
     }
 }

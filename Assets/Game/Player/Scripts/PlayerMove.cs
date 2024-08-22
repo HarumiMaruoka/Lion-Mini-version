@@ -16,8 +16,6 @@ namespace Lion.Player
 
         private Action OnMoveUpdate;
 
-        public float TimeScale => GameManager.Instance.GameSpeedManager.GameSpeed;
-
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -36,7 +34,7 @@ namespace Lion.Player
 
             moveDir += new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-            _rigidbody2D.velocity = moveDir.normalized * PlayerManager.Status.MoveSpeed * TimeScale;
+            _rigidbody2D.velocity = moveDir.normalized * PlayerManager.Status.MoveSpeed;
         }
 
         [SerializeField]
@@ -75,7 +73,7 @@ namespace Lion.Player
             }
 
             var dir = (_targetPointForAutoMove - transform.position).normalized;
-            _rigidbody2D.velocity = dir * PlayerManager.Status.MoveSpeed * TimeScale;
+            _rigidbody2D.velocity = dir * PlayerManager.Status.MoveSpeed;
         }
 
         public void ChangeMoveMode(MoveMode mode)

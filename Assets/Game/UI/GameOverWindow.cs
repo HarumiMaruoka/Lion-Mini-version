@@ -7,6 +7,19 @@ namespace Lion.UI
 {
     public class GameOverWindow : MonoBehaviour
     {
+        public static GameOverWindow Instance { get; private set; }
+
+        private void Awake()
+        {
+            Instance = this;
+            gameObject.SetActive(false);
+        }
+
+        private void OnDestroy()
+        {
+            Instance = null;
+        }
+
         [SerializeField]
         private CanvasGroup _canvasGroup;
         [SerializeField]
@@ -14,8 +27,9 @@ namespace Lion.UI
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        private void OnEnable()
+        public void Show()
         {
+            gameObject.SetActive(true);
             _cancellationTokenSource = new CancellationTokenSource();
             FadeInAsync(_cancellationTokenSource.Token).Forget();
         }

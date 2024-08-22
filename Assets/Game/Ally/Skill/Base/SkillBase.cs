@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lion.Actor;
+using System;
 using UnityEngine;
 
 namespace Lion.Ally.Skill

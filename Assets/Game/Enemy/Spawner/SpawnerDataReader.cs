@@ -8,6 +8,12 @@ namespace Lion.Enemy
     {
         public static List<Wave> Load(TextAsset input)
         {
+            if (input == null)
+            {
+                Debug.LogError("Input is null.");
+                return null;
+            }
+
             var result = new List<Wave>();
             var csv = input.LoadCsv();
 

@@ -61,8 +61,8 @@ namespace Lion.Ally.UI
 
                 _actorView.sprite = _ally.Icon;
                 _name.text = _ally.Name;
-                _expLevel.text = _ally.LevelManager.ExpLevelManager.CurrentLevel.ToString();
-                _itemLevel.text = _ally.LevelManager.ItemLevelManager.CurrentLevel.ToString();
+                //_expLevel.text = _ally.LevelManager.ExpLevelManager.CurrentLevel.ToString();
+                //_itemLevel.text = _ally.LevelManager.ItemLevelManager.CurrentLevel.ToString();
                 _haveCount.text = _ally.Count.ToString();
                 _skillName.text = "not implemented"; /*_ally.SkillPrefab.Name;*/
                 _lockedLabel.SetActive(!_ally.Unlocked);
@@ -77,8 +77,8 @@ namespace Lion.Ally.UI
             ally.OnActiveChanged += OnActiveChanged;
             ally.OnCountChanged += OnCountChanged;
             ally.OnUnlockStatusChanged += OnUnlockStatusChanged;
-            ally.LevelManager.ExpLevelManager.OnLevelChanged += OnExpLevelChanged;
-            ally.LevelManager.ItemLevelManager.OnLevelChanged += OnItemLevelChanged;
+            //ally.LevelManager.ExpLevelManager.OnLevelChanged += OnExpLevelChanged;
+            //ally.LevelManager.ItemLevelManager.OnLevelChanged += OnItemLevelChanged;
         }
 
         private void UnsubscribeFromAllyEvents(AllyData ally)
@@ -87,8 +87,8 @@ namespace Lion.Ally.UI
             ally.OnActiveChanged -= OnActiveChanged;
             ally.OnCountChanged -= OnCountChanged;
             ally.OnUnlockStatusChanged -= OnUnlockStatusChanged;
-            ally.LevelManager.ExpLevelManager.OnLevelChanged -= OnExpLevelChanged;
-            ally.LevelManager.ItemLevelManager.OnLevelChanged -= OnItemLevelChanged;
+            //ally.LevelManager.ExpLevelManager.OnLevelChanged -= OnExpLevelChanged;
+            //ally.LevelManager.ItemLevelManager.OnLevelChanged -= OnItemLevelChanged;
         }
 
         private void OnActiveChanged(bool isActive)

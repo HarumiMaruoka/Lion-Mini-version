@@ -39,22 +39,22 @@ namespace Lion.Weapon.UI
 
             UpdateLevel(default);
 
-            weapon.OnLevelChanged += UpdateLevel;
+            //weapon.OnLevelChanged += UpdateLevel;
             weapon.OnActiveChanged += OnActiveChanged;
         }
 
         private void OnDestroy()
         {
-            _weapon.OnLevelChanged -= UpdateLevel;
+            //_weapon.OnLevelChanged -= UpdateLevel;
             _weapon.OnActiveChanged -= OnActiveChanged;
         }
 
         private void UpdateLevel(int _)
         {
-            var level = _weapon.LevelManager.CurrentLevel;
-            var maxLevel = _weapon.LevelManager.MaxLevel;
+            //var level = _weapon.LevelManager.CurrentLevel;
+            //var maxLevel = _weapon.LevelManager.MaxLevel;
 
-            _levelView.text = $"Lv.{level}/{maxLevel}";
+            //_levelView.text = $"Lv.{level}/{maxLevel}";
         }
 
         private void OnActiveChanged(bool isActive)

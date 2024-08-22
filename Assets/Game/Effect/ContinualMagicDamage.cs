@@ -1,6 +1,6 @@
-﻿using Lion.UI;
+﻿using Lion.Actor;
+using Lion.UI;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lion.Damage

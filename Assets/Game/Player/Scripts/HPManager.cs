@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Lion.Manager;
+using Lion.UI;
+using System;
 using UnityEngine;
 
 namespace Lion.Player
@@ -16,9 +18,10 @@ namespace Lion.Player
             get => _currentHP;
             set
             {
+                var old = _currentHP;
                 _currentHP = Mathf.Clamp(value, 0, MaxHP);
                 OnHPChanged?.Invoke(_currentHP);
-                if (_currentHP == 0)
+                if (old != 0 && _currentHP == 0)
                 {
                     Die();
                 }
@@ -39,8 +42,8 @@ namespace Lion.Player
 
         private void Die()
         {
-            Debug.Log("Player is dead.");
-            Revive(); // Test
+            GameManager.Instance.GameStateController.CurrentState = GameState.GameOver;
+            GameOverWindow.Instance.Show();
         }
 
         public void Revive()

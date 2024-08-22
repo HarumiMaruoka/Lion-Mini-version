@@ -21,7 +21,7 @@ namespace Lion.Minion
         {
             if (EnemyManager.TryGetEnemy(collision.gameObject, out EnemyController enemy))
             {
-                enemy.PhysicalDamage(Status.Attack, Controller);
+                enemy.PhysicalDamage(Status.PhysicalPower, Controller);
             }
         }
     }

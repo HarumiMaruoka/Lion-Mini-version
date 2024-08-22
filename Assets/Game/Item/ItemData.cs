@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lion.Item
 {
-    public class ItemData : ScriptableObject, ISavable
+    public class ItemData : ScriptableObject
     {
         [field: SerializeField] public int ID { get; private set; }
         [field: SerializeField] public string Name { get; private set; }
@@ -23,18 +23,5 @@ namespace Lion.Item
         }
 
         public event Action<int> OnCountChanged;
-
-        public int LoadOrder => -1;
-
-        public void Save()
-        {
-            PlayerPrefs.SetInt($"Item_{ID}", _count);
-        }
-
-        public void Load()
-        {
-            _count = PlayerPrefs.GetInt($"Item_{ID}", 0);
-            OnCountChanged?.Invoke(_count);
-        }
     }
 }
